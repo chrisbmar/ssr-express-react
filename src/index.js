@@ -6,10 +6,21 @@ import Home from "./client/components/Home";
 const app = express();
 const PORT = 3000;
 
-app.get("/", (req, res) => {
-    const content = renderToString(<Home />);
+app.use(express.static("public"));
 
-    res.send(content);
+app.get("/", (req, res) => {
+    // html of our application
+    const content = renderToString(<Home />);
+    const html = `
+        <html>
+            <head></head>
+            <body>
+                <div id="root">${content}</div>
+                <script src="bundle.js"></script>
+            </body>
+        </html>
+    `;
+    res.send(html);
 });
 
 app.listen(PORT, () => {
