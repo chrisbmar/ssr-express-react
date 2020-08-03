@@ -6,9 +6,9 @@ const PORT = 3000;
 
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   // renderer is a ssr helper function
-  res.send(renderer());
+  res.send(renderer(req));
 });
 
 app.listen(PORT, () => {
