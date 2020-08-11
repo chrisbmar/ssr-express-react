@@ -1,14 +1,20 @@
-import Home from "../client/containers/Home";
-import UsersList from "../client/containers/UsersList";
+import App from "../client/containers/App";
+import Home from "../client/components/Home";
+import UsersList from "../client/components/UsersList";
 
 export default [
   {
-    ...Home,
-    path: "/",
-    exact: true
+    ...App,
+    routes: [
+      {
+        ...Home,
+        path: "/",
+        exact: true,
+      },
+      {
+        ...UsersList,
+        path: "/users",
+      },
+    ],
   },
-  {
-    ...UsersList,
-    path: "/users"
-  }
 ];
