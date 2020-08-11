@@ -9,6 +9,7 @@ import createStore from "./helpers/createStore";
 const app = express();
 const PORT = 3000;
 
+// proxies requests from the client and adds a header to redirect to localhost:3000 after Oauth
 app.use(
   "/api",
   proxy("http://react-ssr-api.herokuapp.com", {
@@ -18,8 +19,11 @@ app.use(
     },
   })
 );
+
+// serves the public folder statically 
 app.use(express.static("public"));
 
+// ssr and loadData for the store on requests to all routes
 app.get("*", (req, res) => {
   const store = createStore(req);
   // logic to intialise and load data into the store

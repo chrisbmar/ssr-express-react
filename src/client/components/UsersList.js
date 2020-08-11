@@ -30,5 +30,5 @@ export const loadData = store => {
 
 export default {
   loadData,
-  component: UsersList
+  component: UsersList,
 };

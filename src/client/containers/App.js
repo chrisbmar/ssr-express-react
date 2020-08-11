@@ -1,12 +1,15 @@
 import React from "react";
 import { renderRoutes } from "react-router-config";
+import { useSelector } from "react-redux";
 import Header from "../components/Header";
+import { fetchCurrentUser } from "../actions/index";
 
 const App = ({ route }) => {
-  console.log(route.routes[1]);
+  const authStatus = useSelector(state => state.auth);
+
   return (
     <div>
-      <Header />
+      <Header authStatus={authStatus} />
       {renderRoutes(route.routes)}
     </div>
   );
@@ -14,4 +17,5 @@ const App = ({ route }) => {
 
 export default {
   component: App,
+  loadData: ({ dispatch }) => dispatch(fetchCurrentUser()),
 };
