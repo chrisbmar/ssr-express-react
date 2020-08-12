@@ -16,11 +16,11 @@ app.use(
     proxyReqOptDecorator(opts) {
       opts.headers["x-forwarded-host"] = "localhost:3000";
       return opts;
-    },
+    }
   })
 );
 
-// serves the public folder statically 
+// serves the public folder statically
 app.use(express.static("public"));
 
 // ssr and loadData for the store on requests to all routes
@@ -32,8 +32,15 @@ app.get("*", (req, res) => {
   });
 
   Promise.all(promises).then(() => {
+    const context = {};
     // renderer is a ssr helper function
-    res.send(renderer(req, store));
+    const content = renderer(req, store, context);
+
+    if (context.notFound) {
+      res.status(404);
+    }
+
+    res.send(content);
   });
 });
 
