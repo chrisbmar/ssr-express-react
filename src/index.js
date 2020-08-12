@@ -27,9 +27,17 @@ app.use(express.static("public"));
 app.get("*", (req, res) => {
   const store = createStore(req);
   // logic to intialise and load data into the store
-  const promises = matchRoutes(routes, req.path).map(({ route }) => {
-    return route.loadData ? route.loadData(store) : null;
-  });
+  const promises = matchRoutes(routes, req.path)
+    .map(({ route }) => {
+      return route.loadData ? route.loadData(store) : null;
+    })
+    .map(promise => {
+      if (promise) {
+        return new Promise((resolve, reject) => {
+          promise.then(resolve).catch(resolve);
+        });
+      }
+    });
 
   Promise.all(promises).then(() => {
     const context = {};

@@ -2,6 +2,7 @@ import App from "../client/containers/App";
 import Home from "../client/components/Home";
 import UsersList from "../client/components/UsersList";
 import NotFound from "../client/components/NotFound";
+import AdminsList from "../client/components/AdminsList";
 
 export default [
   {
@@ -11,6 +12,10 @@ export default [
         ...Home,
         path: "/",
         exact: true
+      },
+      {
+        ...AdminsList,
+        path: "/admins"
       },
       {
         ...UsersList,
