@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAdmins } from "../actions";
+import requireAuth from "../hocs/requireAuth";
 
 const AdminsList = () => {
   const admins = useSelector(state => state.admins);
@@ -24,6 +25,6 @@ const AdminsList = () => {
 };
 
 export default {
-  component: AdminsList,
+  component: requireAuth(AdminsList),
   loadData: ({ dispatch }) => dispatch(fetchAdmins())
 };
