@@ -44,6 +44,13 @@ app.get("*", (req, res) => {
     // renderer is a ssr helper function
     const content = renderer(req, store, context);
 
+    // check if the context object has a url property (If <Redirect /> is called on the browser
+    // the context object will have a url propery with the value of the `to=""` in the Redirect
+    // this allows our SSR to redirect us accordingly)
+    if (context.url) {
+      return res.redirect(301, "/");
+    }
+
     if (context.notFound) {
       res.status(404);
     }
