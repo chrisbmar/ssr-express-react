@@ -6,6 +6,7 @@ import { renderRoutes } from "react-router-config";
 // takes any special character such as <> and replaces them with their unicode equivalents
 // this stops cross site attacks
 import serialize from "serialize-javascript";
+import { Helmet } from "react-helmet";
 import routes from "../shared/routes";
 
 export default (req, store, context) => {
@@ -17,9 +18,15 @@ export default (req, store, context) => {
       </StaticRouter>
     </Provider>
   );
+
+  const helmet = Helmet.renderStatic();
+
   return `
         <html>
-            <head></head>
+            <head>
+              ${helmet.title.toString()}
+              ${helmet.meta.toString()}
+            </head>
             <body>
                 <div id="root">${content}</div>
                 <script>
