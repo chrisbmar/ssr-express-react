@@ -17,12 +17,18 @@ const UsersList = () => {
     });
   };
 
-  return (
-    <div>
+  const head = () => {
+    return ( 
       <Helmet>
-        <title>Users App</title>
+        <title>{`${users.length} Users Loaded`}</title>
         <meta property="og:title" content="Users App" />
       </Helmet>
+    );
+  }
+
+  return (
+    <div>
+      {head()}
       Here's a big list of users:
       <ul>{users && renderUsers()}</ul>
     </div>
